@@ -1,0 +1,10 @@
+[Unit]
+Description=Install an image from S3
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/install_from_s3
+Restart=always
+RestartSec=20
+StandardOutput=journal+console

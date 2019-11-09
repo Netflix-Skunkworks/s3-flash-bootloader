@@ -1,0 +1,62 @@
+#!/bin/bash -x
+set -o errexit
+set -o nounset
+set -o pipefail
+
+function watchdoge {
+  sleep 1000
+  exec 3> /root/watchdoge.lock
+  # Don't try to restart if the flock is held
+  flock -n 3
+  echo "watchdoge restoring original OS"
+  mount "${root}" /mnt
+  cd /mnt
+  rm -r boot
+  mv boot.bak boot
+}
+
+function s3_install {
+  modprobe nvme
+
+  read -a cmdline < /proc/cmdline
+
+  for arg in "${cmdline[@]}"; do
+          case "${arg}" in
+                  root=UUID=*)
+                          root="/dev/disk/by-uuid/${arg#root=UUID=}"
+                          ;;
+                  root=*)
+                          root="${arg#root=}"
+                          ;;
+                  source=*)
+                          source_file="${arg#source=}"
+                          ;;
+          esac
+  done
+
+  ls -lR /root
+  echo "Root: ${root}"
+  echo "Source: s3://${source_file}"
+
+  aws s3 cp "s3://${source_file}" /root/image.lz4
+
+  # Infinite loop; will be interrupted by watchdog if the disk never arrives
+  while ! test -e "${root}"; do sleep 0.1; done
+
+  # Take the watchdoge lock, to prevent the watchdoge from rebooting us.
+  flock -n 3
+  lz4 -d "/root/image.lz4" > "${root}"
+}
+
+exec 3> /root/watchdoge.lock
+
+case "${0##*/}" in
+  watchdoge)
+    watchdoge
+    ;;
+  *)
+    s3_install
+    ;;
+esac
+
+exec reboot -f

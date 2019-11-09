@@ -1,0 +1,12 @@
+language: minimal
+dist: bionic
+script: sudo ./build.sh
+deploy:
+  provider: releases
+  api_key:
+    secure: mT39+4c5rxKDJ9l0Jhz1AGFCh8l91SoLtsO5aDYG4xZ3k6GUuVFQdEshSaYYNs2wgORylem6AemB61zlfLO1FCwm0cQWtYjiqEmZPaNy3ENhqOL2fsaxWzvaS5xpb5/9WJ1X07VC3ZfTdZgP3uwLyc5+ixygScM6g2u5ocq48EEoxjeOruf8YjlC4YwE8Fnv1z3nsv0RetOcc4Lh7XVNLwvILWxJ8YWDFJRakM6m5QFk50aFQLFG4txLYpj61vUTX4AM2OXoQsbQx6SRXXWizRQ7GRR8v5bV8FdWqsvuJfHFCQdBSAKJazFb8oJQnmZ31KnHHDBaLKDYgM+hZM73VKO0o8+Kq+PfantsONxpaUzaFssVV7x4VexxzblxeJLbd+k1s41YDaUPecNUjlqaORJInrmkwLdtYddlv31jAvTV5RuHDgx2oAuNVSE+TAcJzuT1H0H2WEgHTgJmKHgMHdwjzmWJe9+sec3CT26lm0Ejp6Dc8q9BXwf7cTAd+TGwocWSLcvVsbMoQPfTM1sVVbDpKuggyf9mEeZ1zsjXJnEZd+bhur1awGq4Jct0MIirvEEs6wtcDQQMtv/cWxFT8pL87l1+vR6faLoz8nk2/BVoogObMF0OHByU9GsAcFfK0LNXTWe+HnUhpCwivkiqOqbVcJBf0AFWUOUYXsnQ2/s=
+  file: build/bootloader-*.tar.gz
+  file_glob: true
+  draft: true
+  on:
+    repo: Netflix-Skunkworks/s3-flash-bootloader

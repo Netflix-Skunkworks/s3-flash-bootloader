@@ -1,0 +1,8 @@
+[Unit]
+Description=Watchdoge that reboots when up too long
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/watchdoge
+StandardOutput=journal+console

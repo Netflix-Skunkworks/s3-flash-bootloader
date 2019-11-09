@@ -1,0 +1,7 @@
+[Unit]
+Description=Generate SSH keys
+Before=ssh.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/generate_ssh_host_keys
