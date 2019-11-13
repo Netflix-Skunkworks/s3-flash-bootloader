@@ -5,9 +5,10 @@ instance-store).
 
 This system allows you to perform in-place upgrades of a server's entire
 software, producing a software configuration identical to that of a freshly
-booted server. It may either complement or supplant a configuration management
-tool. When it fully replaces a configuration management tool, it achieves many
-of the benefits of immutable servers, even when hardware is long-lived.
+launched server image. It may either complement or entirely replace a
+configuration management tool. When it replaces a configuration management
+tool, it achieves many of the benefits of immutable servers, even when hardware
+is long-lived.
 
 # Prerequisites
 
