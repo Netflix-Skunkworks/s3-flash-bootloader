@@ -13,6 +13,8 @@ is long-lived.
 # Prerequisites
 
 * The existing system must have [GRUB][GRUB] installed
+* The existing system cannot be running on a `PV` Virtualized AMI.
+* Enough memory to store the compressed OS image.
 
 [GRUB]: https://www.gnu.org/software/grub/
 
@@ -20,7 +22,14 @@ is long-lived.
 
 Installing s3-flash-bootloader on your system overwrites any existing boot
 configuration. After installation, your system will not be able to boot, except
-into s3-flash-bootloader.
+into s3-flash-bootloader. For this reason there are two safety mechanism built
+into the bootloader:
+
+1. If downloading fails (permissions, image doesn't exist, etc ...) the
+   bootloader will reboot back into your original OS without flashing the
+   root volume.
+2. You can include your public SSH keys in the bootloader so you can still SSH
+   into the bootloader itself while it is running.
 
 We publish a release tarball for [x86_64][release]. Installation of the
 bootloader will depend on your environment. A minimal install script might look
@@ -28,9 +37,13 @@ like:
 
     #!/bin/bash
     set -e
+    # Make a backup so that the bootloader can restore the machine if downloading fails
     cp -a /boot /boot.bak
+    # Install the bootloader
     tar -C /boot -xvf bootloader-$(uname -m).tar.gz
+    # Tell the bootloader where to load the new AMI from
     /boot/configure_bootloader.sh <bucket>/<key> /dev/disk/by-label/cloudimg-rootfs
+    # Add a SSH key so that you can access the bootloader while it is running
     /boot/add_ssh_key.sh ~/.ssh/id_ed25519.pub
 
 [release]: https://github.com/Netflix-Skunkworks/s3-flash-bootloader/releases/latest/download/bootloader-x86_64.tar.gz
@@ -40,7 +53,9 @@ like:
 s3-flash-bootloader requires lz4-compressed full disk images stored in s3.
 Included in the examples directory of this repo is a script to upload the
 contents of an AMI to S3. We hope this script can serve as a useful template as
-you adapt it to fit your environment.
+you adapt it to fit your environment. At Netflix we tie similar automation into
+our AMI baking piplines which upload the disk image directly to S3 in addition
+to the normal snapshot and publish.
 
 # Usage note
 
@@ -74,6 +89,6 @@ Debian-like OS.
 
 # Contributing
 
-We hope this code is useful for you, and we are happy to accept bugfixes.  If
-you'd prefer to build new features, we recommend forking the repo and
-implementing whatever suits your fancy.
+We hope this code is useful for you, and we are happy to accept bugfixes.
+If you prefer to build new features we encourage you to fork and adapt this to
+your needs.
