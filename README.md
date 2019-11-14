@@ -41,6 +41,8 @@ like:
     cp -a /boot /boot.bak
     # Install the bootloader
     tar -C /boot -xvf bootloader-$(uname -m).tar.gz
+    cd /boot
+
     # Tell the bootloader where to load the new AMI from
     /boot/configure_bootloader.sh <bucket>/<key> /dev/disk/by-label/cloudimg-rootfs
     # Add a SSH key so that you can access the bootloader while it is running
