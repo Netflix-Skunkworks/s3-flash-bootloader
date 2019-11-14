@@ -40,7 +40,7 @@ like:
 s3-flash-bootloader requires lz4-compressed full disk images stored in s3.
 Included in the examples directory of this repo is a script to upload the
 contents of an AMI to S3. We hope this script can serve as a useful template as
-you adapt it to fit your environment
+you adapt it to fit your environment.
 
 # Usage note
 
@@ -74,5 +74,6 @@ Debian-like OS.
 
 # Contributing
 
-We hope this code is useful for you. Unfortunately we cannot take substantive
-contributions at this time.
+We hope this code is useful for you, and we are happy to accept bugfixes.  If
+you'd prefer to build new features, we recommend forking the repo and
+implementing whatever suits your fancy.
