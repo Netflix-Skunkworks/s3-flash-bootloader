@@ -15,8 +15,9 @@ is long-lived.
 # Prerequisites
 
 * The existing system must have [GRUB][GRUB] installed
-* The existing system cannot be running on a `PV` Virtualized AMI.
-* Enough memory to store the compressed OS image.
+* The existing system cannot be running on a `PV` virtualized server
+* There must be enough RAM to store the compressed OS image, with some to spare 
+  for the bootloader
 
 [GRUB]: https://www.gnu.org/software/grub/
 
