@@ -12,6 +12,11 @@ configuration management tool. When it replaces a configuration management
 tool, it achieves many of the benefits of immutable servers, even when hardware
 is long-lived.
 
+To learn more about the development of s3-flash-bootloader, check out the
+[introductory blog post][blog]
+
+[blog]: https://medium.com/@NetflixTechBlog/datastore-flash-upgrades-187f1e4ef859
+
 # Prerequisites
 
 * The existing system must have [GRUB][GRUB] installed
