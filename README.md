@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Netflix-Skunkworks/s3-flash-bootloader.svg?branch=master)](https://travis-ci.org/Netflix-Skunkworks/s3-flash-bootloader)
+[![Build Status](https://travis-ci.com/Netflix-Skunkworks/s3-flash-bootloader.svg?branch=master)](https://travis-ci.com/Netflix-Skunkworks/s3-flash-bootloader)
 
 This is a minimal in-memory operating system for flashing new disk images onto
 existing servers. It is especially useful for stateful services running on
